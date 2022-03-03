@@ -49,6 +49,20 @@ namespace Web.Api.Thales
             services.AddTransient<IEmployees, Employees>();
 
             #endregion
+            #region Add CORS
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "AllowOrigin",
+                    builder => {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                    });
+            });
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +77,7 @@ namespace Web.Api.Thales
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"Web.Api.Thales v1 {enviroment}"));
             }
 
+            app.UseCors("AllowOrigin");
 
             app.UseHttpsRedirection();
 

@@ -23,6 +23,8 @@ namespace Web.Api.Thales
 
         public decimal employee_salary { get; set; }
 
+        public decimal employee_anual_salary { get; set; }
+
         public int employee_age { get; set; }
 
         public string profile_image { get; set; }

@@ -26,6 +26,12 @@ namespace Web.Api.Thales.Services
             {
                 var json = await response.Content.ReadAsStringAsync();
                 var model = JsonConvert.DeserializeObject<EmployeesResult>(json);
+
+                foreach (var item in model.data)
+                {
+                    item.employee_anual_salary = item.employee_salary * 12;
+                }
+
                 return model;
             }
             else // code 429 (Too many request)
@@ -49,6 +55,8 @@ namespace Web.Api.Thales.Services
 
                 if (model.data == null)
                     throw new Exception("Not Found");
+
+                model.data.employee_anual_salary = model.data.employee_salary * 12;
 
                 return model;
             }
